@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-lg mt-5">
+    <div class="card-body text-center">
+        <h1 class="text-danger">Supprimer {{ livre.titre }}</h1>
+        <p>Êtes-vous sûr de vouloir retirer <strong>"{{ livre.titre }}"</strong> de l'auteur <strong>"{{ livre.auteur }}"</strong> de la liste ?</p>
+        <form method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirmer</button>
+        </form>
+        <a href="{% url 'detail_livre' livre.pk %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-lg mt-5">
+    <div class="card-body">
+        <h1 class="card-title">{{ livre.titre }}</h1>
+        <p class="card-text"><strong>Auteur :</strong> {{ livre.auteur }}</p>
+        {% if livre.isbn %}
+            <p class="card-text"><strong>ISBN :</strong> {{ livre.isbn }}</p>
+        {% endif %}
+        <p class="card-text"><strong>Date de publication :</strong> {{ livre.date_publication }}</p>
+        {% if livre.description %}
+            <p class="card-text"><strong>Description :</strong> {{ livre.description|safe }}</p>
+        {% endif %}
+        <p class="card-text"><strong>Ajouté par :</strong> {{ livre.ajout_par }}</p>
+        <p class="card-text"><strong>Date d'ajout :</strong> {{ livre.date_ajout }}</p>
+        <a href="{% url 'liste_livres' %}" class="btn btn-secondary">Retour</a>
+        {% if livre.ajout_par == request.user %}
+            <a href="{% url 'modifier_livre' livre.id %}" class="btn btn-primary">Modifier</a>
+            <a href="{% url 'supprimer_livre' livre.id %}" class="btn btn-danger">Supprimer</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

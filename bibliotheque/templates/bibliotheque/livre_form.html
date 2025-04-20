@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un livre</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {% if field.name == "isbn" %}ISBN{% elif field.name == "description" %}Description (facultatif){% else %}{{ field.label }}{% endif %}
+                            </label>
+                            {% render_field field class="form-control" %}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success w-100">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
